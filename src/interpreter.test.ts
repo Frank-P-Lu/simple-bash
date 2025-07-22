@@ -142,13 +142,44 @@ describe('Shell Interpreter', () => {
     });
   });
 
+  describe('pwd command', () => {
+    it('should show current directory', () => {
+      const result = interpret('pwd', initialState);
+      expect(result.output).toBe('/');
+      expect(result.newState).toEqual(initialState);
+    });
+
+    it('should show current directory after cd', () => {
+      const state = { ...initialState, currentDirectory: '/docs' };
+      const result = interpret('pwd', state);
+      expect(result.output).toBe('/docs');
+      expect(result.newState).toEqual(state);
+    });
+
+    it('should reject arguments', () => {
+      const result = interpret('pwd /docs', initialState);
+      expect(result.output).toBe('pwd: too many arguments');
+      expect(result.newState).toEqual(initialState);
+    });
+  });
+
   describe('integration tests', () => {
     it('should maintain state across commands', () => {
       let state = initialState;
       
+      // Show initial directory
+      let result = interpret('pwd', state);
+      expect(result.output).toBe('/');
+      state = result.newState;
+      
       // Change directory
-      let result = interpret('cd /docs', state);
+      result = interpret('cd /docs', state);
       expect(result.newState.currentDirectory).toBe('/docs');
+      state = result.newState;
+      
+      // Confirm directory change
+      result = interpret('pwd', state);
+      expect(result.output).toBe('/docs');
       state = result.newState;
       
       // List current directory

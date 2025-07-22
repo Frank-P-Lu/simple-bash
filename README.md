@@ -6,7 +6,7 @@ A functional TypeScript library that simulates basic bash commands with an in-me
 
 - **Functional Design**: Pure functions with immutable state
 - **In-Memory File System**: No actual file operations - uses object mapping
-- **Basic Commands**: `cd`, `ls`, `cat` with no flags (keeping it simple)
+- **Basic Commands**: `cd`, `ls`, `cat`, `pwd` with no flags (keeping it simple)
 - **Browser & Node.js Compatible**: Works in both environments
 - **TypeScript**: Full type safety and excellent IDE support
 
@@ -117,6 +117,14 @@ interpret('cat file.txt', state);      // Absolute path
 interpret('cat ./docs/readme.md', state); // Relative path
 ```
 
+### `pwd`
+
+Shows the current working directory.
+
+```typescript
+interpret('pwd', state);  // Shows current directory path
+```
+
 ## Examples
 
 ### Custom File System
@@ -153,8 +161,10 @@ function runSession(commands: string[]) {
 }
 
 runSession([
+  'pwd',
   'ls',
   'cd docs',
+  'pwd',
   'ls',
   'cat readme.md'
 ]);

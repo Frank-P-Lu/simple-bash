@@ -111,3 +111,17 @@ export const catCommand: CommandHandler = (args: string[], state: State): Comman
     newState: state
   };
 };
+
+export const pwdCommand: CommandHandler = (args: string[], state: State): CommandResult => {
+  if (args.length > 0) {
+    return {
+      output: 'pwd: too many arguments',
+      newState: state
+    };
+  }
+  
+  return {
+    output: state.currentDirectory,
+    newState: state
+  };
+};

@@ -1,10 +1,11 @@
 import { State, CommandResult, CommandHandler } from './types';
-import { cdCommand, lsCommand, catCommand } from './commands';
+import { cdCommand, lsCommand, catCommand, pwdCommand } from './commands';
 
 const commands: { [key: string]: CommandHandler } = {
   cd: cdCommand,
   ls: lsCommand,
   cat: catCommand,
+  pwd: pwdCommand,
 };
 
 function parseCommand(line: string): { command: string; args: string[] } {

@@ -20,13 +20,17 @@ function runCommand(command, state) {
 // Demo sequence
 let currentState = initialState;
 
-console.log(`Starting in: ${currentState.currentDirectory}\n`);
+// Show starting directory
+currentState = runCommand('pwd', currentState);
 
 // List root directory
 currentState = runCommand('ls', currentState);
 
 // Change to docs directory
 currentState = runCommand('cd docs', currentState);
+
+// Show current directory
+currentState = runCommand('pwd', currentState);
 
 // List docs directory
 currentState = runCommand('ls', currentState);
